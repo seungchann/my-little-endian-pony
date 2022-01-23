@@ -29,6 +29,10 @@ public class CarController : MonoBehaviour
     [SerializeField] private Transform fRTransform;
     [SerializeField] private Transform rRTransform;
     [SerializeField] private Transform rLTransform;
+
+    [SerializeField] private Material Red_light;
+    [SerializeField] private Material Red_light_on;
+    [SerializeField] private GameObject ReverseLight;
     
 
     private void Start(){
@@ -70,7 +74,8 @@ public class CarController : MonoBehaviour
     }
 
     private void HandlerMotor()
-    {
+    {   
+        if(verticalInput < 0) return ;
         if(horizontalInput != 0){
             if(horizontalInput > 0){
                 fLCollider.motorTorque = verticalInput * motorForce * Math.Abs(steerAngle);
@@ -90,9 +95,11 @@ public class CarController : MonoBehaviour
         }
         currentbreakForce = isBreaking ? breakForce : 0f;
         if(isBreaking){
+            ReverseLight.GetComponent<Renderer>().material = Red_light_on;
             ApplyBreaking();
         }
         else{
+            ReverseLight.GetComponent<Renderer>().material = Red_light;
             Accelerate();
         }
     }
