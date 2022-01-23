@@ -14,6 +14,8 @@ public class CarController : MonoBehaviour
     private float currentbreakForce;
     private bool isBreaking;
 
+    private Rigidbody carBody;
+
     [SerializeField] private float motorForce;
     [SerializeField] private float breakForce;
     [SerializeField] private float maxSteeringAngle;
@@ -30,6 +32,7 @@ public class CarController : MonoBehaviour
     
 
     private void Start(){
+        carBody = GetComponent<Rigidbody>();
     }
 
     private void Update(){
@@ -60,6 +63,7 @@ public class CarController : MonoBehaviour
 
     private void HandleSteering()
     {
+        Debug.Log(horizontalInput);
         steerAngle = maxSteeringAngle * horizontalInput;
         fLCollider.steerAngle = steerAngle;
         fRCollider.steerAngle = steerAngle;
@@ -67,10 +71,23 @@ public class CarController : MonoBehaviour
 
     private void HandlerMotor()
     {
-        fLCollider.motorTorque = verticalInput * motorForce;
-        fRCollider.motorTorque = verticalInput * motorForce;
-        rLCollider.motorTorque = verticalInput * motorForce;
-        rRCollider.motorTorque = verticalInput * motorForce;
+        if(horizontalInput != 0){
+            if(horizontalInput > 0){
+                fLCollider.motorTorque = verticalInput * motorForce * Math.Abs(steerAngle);
+                fRCollider.motorTorque = verticalInput * motorForce;
+                carBody.centerOfMass = new Vector3(Math.Abs(steerAngle) / 50, -0.2f, 0);
+            }
+            else{
+                fRCollider.motorTorque = verticalInput * motorForce * Math.Abs(steerAngle);
+                fLCollider.motorTorque = verticalInput * motorForce;
+                carBody.centerOfMass = new Vector3((-1) * Math.Abs(steerAngle) / 50, -0.2f, 0);
+            }
+            
+        }else{
+            fLCollider.motorTorque = verticalInput * motorForce;
+            fRCollider.motorTorque = verticalInput * motorForce;
+            carBody.centerOfMass = new Vector3(0, 0, 0);
+        }
         currentbreakForce = isBreaking ? breakForce : 0f;
         if(isBreaking){
             ApplyBreaking();
