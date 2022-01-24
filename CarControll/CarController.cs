@@ -67,7 +67,7 @@ public class CarController : MonoBehaviour
 
     private void HandleSteering()
     {
-        Debug.Log(horizontalInput);
+        // Debug.Log(horizontalInput);
         steerAngle = maxSteeringAngle * horizontalInput;
         fLCollider.steerAngle = steerAngle;
         fRCollider.steerAngle = steerAngle;

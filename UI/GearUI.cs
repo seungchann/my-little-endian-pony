@@ -69,7 +69,7 @@ public class GearUI : MonoBehaviour
             float x = GearTransform.anchoredPosition.x;
             float y = GearTransform.anchoredPosition.y;
             if(Vector2.Distance(new Vector2(x,y), new Vector2(i.Key, i.Value)) <= 0.4f){
-                Debug.Log(i.Key + i.Value);
+                // Debug.Log(i.Key + i.Value);
                 float p = i.Key + i.Value;
                 // if(p==-50.4f)
                 //     CarController.motorForce = 300f;
