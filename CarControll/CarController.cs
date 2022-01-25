@@ -13,6 +13,7 @@ public class CarController : MonoBehaviour
     private float steerAngle;
     private float currentbreakForce;
     private bool isBreaking;
+    private float rotated = 0f;
 
     private Rigidbody carBody;
 
@@ -34,7 +35,10 @@ public class CarController : MonoBehaviour
     [SerializeField] private Material Red_light_on;
     [SerializeField] private GameObject ReverseLight;
     
-
+    [Header("Hinges Settings")]
+    [SerializeField] private Vector3 RotationAxis;
+    [SerializeField] private GameObject handle;
+    
     private void Start(){
         carBody = GetComponent<Rigidbody>();
     }
@@ -71,6 +75,14 @@ public class CarController : MonoBehaviour
         steerAngle = maxSteeringAngle * horizontalInput;
         fLCollider.steerAngle = steerAngle;
         fRCollider.steerAngle = steerAngle;
+        if(rotated < 480f && rotated > -480f){
+            handle.transform.RotateAround(handle.transform.position, RotationAxis, steerAngle * 3);
+            rotated += steerAngle * 3;
+        } else {
+            if(rotated >= 480f && steerAngle <0 ) rotated += steerAngle * 3;
+            else if(rotated <= -480f && steerAngle > 0) rotated += steerAngle * 3;
+        }
+            
     }
 
     private void HandlerMotor()
