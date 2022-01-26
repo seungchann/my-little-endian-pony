@@ -33,9 +33,14 @@
   * V 키 입력을 통해 카메라 시점을 전환할 수 있습니다.
   * Z 키 입력을 통해 좌우측 도어와 트렁크를 개폐할 수 있습니다.
   * Q, E 키 입력을 통해 좌우측 방향지시등을 작동 시킬 수 있습니다.
+  
+  ![스크린샷 2022-01-26 16 09 21](https://user-images.githubusercontent.com/37971925/151118849-b52c88ee-33e8-4129-95ea-b80b6f41f825.png)
+
 * FCAS(Forward Collision-Avoid System)
   * RayCast를 통해 전방추돌감지 기능을 구현했습니다.
   * 차량 전방 일정 거리 내 물체가 있을 시 비상등을 점등하며 정차합니다.
+  ![스크린샷 2022-01-26 16 12 34](https://user-images.githubusercontent.com/37971925/151119032-84f3e9cd-1529-44f4-99bb-553114b7a788.png)
+
 ***
 ### Scene 2 - Flag Tracking  
 #### Major features  
