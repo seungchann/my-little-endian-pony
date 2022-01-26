@@ -59,7 +59,7 @@
 #### Major features  
 * ML-Agents를 이용해서 Flag Tracking을 훈련시킨 모델입니다.
 * 이미 훈련된 모델을 사용하고 싶다면 다음과 같이 진행합니다.  
-  * Hierarchy 윈도우에서 OOO - OOOO 클릭합니다.
+  * Hierarchy 윈도우에서 TrainingArea - RollerAgent 클릭합니다.
   * Behavior-Parameters에 autopilot.nn 모델을 추가합니다.  
   * Behavior Type에서 Inference only를 체크합니다.
 * 새로운 모델을 훈련시키고 싶다면 다음과 같이 진행합니다.  
