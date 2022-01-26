@@ -8,13 +8,44 @@ public class CameraRect : MonoBehaviour{
     [SerializeField] private Camera[] cameraArray;
     
 
-    void Awake(){
-        MainCamera.rect = new Rect(0.0f, 0, 0.5f, 1);
-        cameraArray[0].rect = new Rect(0.5f, 0, 1.0f, 0.5f);
-        cameraArray[0].depth = -1;
-        cameraArray[1].depth = -2;
-        cameraArray[1].rect = new Rect(0.5f, 0.5f, 1.0f, 1.0f);
-        cameraArray[0].enabled = true;
-        cameraArray[1].enabled = true;
+    void Awake()
+    {
+        MainCamera.enabled = true;
+        ViewRect();
+    }
+
+    private void ViewRect()
+    {
+        if(cameraArray.Length == 0) ;
+        else if(cameraArray.Length == 1){
+            MainCamera.rect = new Rect(0.0f, 0f, 0.5f, 1);
+            cameraArray[0].rect = new Rect(0.5f, 0f, 1, 1);
+            cameraArray[0].depth = 1;
+            cameraArray[0].enabled = true;
+        }
+        else if(cameraArray.Length == 2){
+            MainCamera.rect = new Rect(0.0f, 0, 0.5f, 1);
+            cameraArray[0].rect = new Rect(0.5f, 0, 1.0f, 0.5f);
+            cameraArray[0].depth = 1;
+            cameraArray[1].depth = 2;
+            cameraArray[1].rect = new Rect(0.5f, 0.5f, 1.0f, 1.0f);
+            cameraArray[0].enabled = true;
+            cameraArray[1].enabled = true;
+        }
+        else if(cameraArray.Length == 3){
+            MainCamera.rect = new Rect(0.0f, 0.5f, 0.5f, 1);
+            cameraArray[2].rect = new Rect(0.5f, 0, 1.0f, 0.5f);
+            cameraArray[0].depth = 1;
+            cameraArray[1].depth = 2;
+            cameraArray[0].rect = new Rect(0.5f, 0.5f, 1.0f, 1.0f);
+            cameraArray[0].enabled = true;
+            cameraArray[1].enabled = true;
+            cameraArray[1].rect = new Rect(0.0f, 0f, 0.5f, 0.5f);
+            cameraArray[2].depth = 3;
+            cameraArray[2].enabled = true;
+           
+
+        }
+        
     }
 }

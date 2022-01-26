@@ -34,7 +34,6 @@ public class MovingCamera : MonoBehaviour
     void Start()
     {
         startTime = Time.time;
-        foreach(Camera i in MainCamera) i.enabled = true;
         foreach(Camera i in cameraArray) i.enabled = false;
         SetCamera();
     }

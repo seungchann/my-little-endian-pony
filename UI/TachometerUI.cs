@@ -26,6 +26,6 @@ public class TachometerUI : MonoBehaviour
         if(speed/maxSpeed <= 0.5f)
             needle.transform.localRotation = Quaternion.Euler(Vector3.Lerp(startAngle, midleAngle, 2 * speed / maxSpeed));
         else
-            needle.transform.localRotation = Quaternion.Euler(Vector3.Lerp(midleAngle, endAngle, 2 * speed / maxSpeed));
+            needle.transform.localRotation = Quaternion.Euler(Vector3.Lerp(midleAngle, endAngle, (2 *speed / maxSpeed) - 1f));
     }
 }
