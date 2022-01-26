@@ -16,8 +16,12 @@ public class Doors
     public float currentDegree;
     public DoorState DoorState;
     private DoorState PreviousState;
+    [HideInInspector]
+    public Vector3 CurrentAngle;
     public GameObject DoorObject;
     private Vector3 OriginalPosition;
+    [SerializeField] public Vector3 startAngle;
+    [SerializeField] public Vector3 endAngle;
     private Quaternion OriginalAngle;
     [Header("Hinges Settings")]
     public Vector3 RotationAxis;
@@ -66,6 +70,7 @@ public class CarDoorController : MonoBehaviour
     {
         if (doorIndex < DoorList.Count && doorIndex >= 0)
         {
+            DoorList[doorIndex].CurrentAngle = DoorList[doorIndex].DoorObject.transform.localEulerAngles;
             switch (DoorList[doorIndex].DoorState)
             {
                 case DoorState.Closed:
@@ -74,12 +79,12 @@ public class CarDoorController : MonoBehaviour
                 case DoorState.Opened:
                     DoorList[doorIndex].DoorState = DoorState.Closing;
                     break;
-                // case DoorState.Closing:
-                //     DoorList[doorIndex].DoorState = DoorState.Opening;
-                //     break;
-                // case DoorState.Opening:
-                //     DoorList[doorIndex].DoorState = DoorState.Closing;
-                //     break;
+                case DoorState.Closing:
+                    DoorList[doorIndex].DoorState = DoorState.Opening;
+                    break;
+                case DoorState.Opening:
+                    DoorList[doorIndex].DoorState = DoorState.Closing;
+                    break;
             }
         }
     }
@@ -89,10 +94,9 @@ public class CarDoorController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            ToggleDoorControl(0);
-            ToggleDoorControl(1);
-            ToggleDoorControl(2);
-            ToggleDoorControl(3);
+            for(int i=0; i<DoorList.Count; i++){
+                ToggleDoorControl(i);
+            }
         }
         DoorAnimaton();
     }
@@ -113,13 +117,15 @@ public class CarDoorController : MonoBehaviour
                     case DoorState.Opening:
                         if (curDoor.GetPreviousDoorState() == DoorState.Opened)
                             break;
-                        curDoor.currentDegree += DoorSpeed * Time.deltaTime;
-                        if (curDoor.currentDegree < curDoor.RotationAngle)
+                        curDoor.currentDegree += DoorSpeed*Time.deltaTime / curDoor.RotationAngle;
+                        if (curDoor.currentDegree < 1)
                         {
-                            curDoor.DoorObject.transform.RotateAround(curDoor.DoorObject.transform.position, curDoor.RotationAxis, DoorSpeed * Time.deltaTime);
+                            curDoor.DoorObject.transform.localRotation = Quaternion.Lerp(Quaternion.Euler(curDoor.CurrentAngle), Quaternion.Euler(curDoor.endAngle), 
+                            curDoor.currentDegree);
                         }
                         else
                         {
+                            curDoor.currentDegree = 0;
                             curDoor.DoorState = DoorState.Opened;
                             curDoor.SetCurrentStateSaved();
                         }
@@ -127,13 +133,15 @@ public class CarDoorController : MonoBehaviour
                     case DoorState.Closing:
                         if (curDoor.GetPreviousDoorState() == DoorState.Closed)
                             break;
-                        curDoor.currentDegree -= DoorSpeed * Time.deltaTime;
-                        if (curDoor.currentDegree >= 0)
+                        curDoor.currentDegree += DoorSpeed*Time.deltaTime / curDoor.RotationAngle;
+                        if (curDoor.currentDegree < 1)
                         {
-                            curDoor.DoorObject.transform.RotateAround(curDoor.DoorObject.transform.position, -curDoor.RotationAxis, DoorSpeed * Time.deltaTime);
+                            curDoor.DoorObject.transform.localRotation = Quaternion.Lerp(Quaternion.Euler(curDoor.CurrentAngle), Quaternion.Euler(curDoor.startAngle), 
+                            curDoor.currentDegree);
                         }
                         else
                         {
+                            curDoor.currentDegree = 0;
                             curDoor.DoorState = DoorState.Closed;
                             curDoor.SetCurrentStateSaved();
                         }
