@@ -54,6 +54,8 @@
 
 ***
 ### Scene 2 - Flag Tracking  
+![스크린샷 2022-01-26 오후 4 55 24](https://user-images.githubusercontent.com/63276842/151124982-0bb8dcd9-fad2-4772-8d75-9709f241ec5b.png)
+
 #### Major features  
 * ML-Agents를 이용해서 Flag Tracking을 훈련시킨 모델입니다.
 * 이미 훈련된 모델을 사용하고 싶다면 다음과 같이 진행합니다.  
