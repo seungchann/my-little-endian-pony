@@ -3,6 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
+public class Handle{
+    public GameObject HandleObject;
+    public Vector3 leftMaxAngle;
+    public Vector3 rightMaxAngle;
+}
+
 public class CarController : MonoBehaviour
 {
     private const string HORIZONTAL = "Horizontal";
@@ -16,6 +23,8 @@ public class CarController : MonoBehaviour
     private float rotated = 0f;
 
     private Rigidbody carBody;
+
+    [SerializeField] private Handle handle;
 
     [SerializeField] private float motorForce;
     [SerializeField] private float breakForce;
@@ -37,7 +46,6 @@ public class CarController : MonoBehaviour
     
     [Header("Hinges Settings")]
     [SerializeField] private Vector3 RotationAxis;
-    [SerializeField] private GameObject handle;
     
     private void Start(){
         carBody = GetComponent<Rigidbody>();
@@ -75,12 +83,10 @@ public class CarController : MonoBehaviour
         steerAngle = maxSteeringAngle * horizontalInput;
         fLCollider.steerAngle = steerAngle;
         fRCollider.steerAngle = steerAngle;
-        if(rotated < 480f && rotated > -480f){
-            handle.transform.RotateAround(handle.transform.position, RotationAxis, steerAngle * 3);
-            rotated += steerAngle * 3;
-        } else {
-            if(rotated >= 480f && steerAngle <0 ) rotated += steerAngle * 3;
-            else if(rotated <= -480f && steerAngle > 0) rotated += steerAngle * 3;
+        if(horizontalInput > 0){
+            handle.HandleObject.transform.localRotation = Quaternion.Lerp(handle.HandleObject.transform.localRotation, Quaternion.Euler(handle.rightMaxAngle), steerAngle / maxSteeringAngle);
+        } else{
+            handle.HandleObject.transform.localRotation = Quaternion.Lerp(handle.HandleObject.transform.localRotation, Quaternion.Euler(handle.leftMaxAngle), Math.Abs(steerAngle / maxSteeringAngle));
         }
             
     }
