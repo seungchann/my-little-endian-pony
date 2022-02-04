@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 4752847433aae45e79850127cdcf265d
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - Target: {instanceID: 0}
+  - FloorRenderer: {instanceID: 0}
+  - BlackMaterial: {fileID: 2100000, guid: 69fefdd39d2b34b169e921910bed9c0d, type: 2}
+  - RedMaterial: {instanceID: 0}
+  - BlueMaterial: {instanceID: 0}
+  - viewModel: {fileID: 1293290366791352, guid: 70d695e1d8399400bb0f2873bdf29bb0, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
