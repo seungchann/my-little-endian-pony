@@ -9,9 +9,9 @@
 ***
 
 ### A. 개발 팀원  
-* UNIST 컴퓨터공학과 [김승찬](https://github.com/seungchann)  
-* 부산대 정보컴퓨터공학과 [이준영](https://github.com/rubinstory)  
-* KAIST 전산학부 [정민근](https://github.com/Zea7)  
+* [김승찬](https://github.com/seungchann)  
+* [이준영](https://github.com/rubinstory)  
+* [정민근](https://github.com/Zea7)  
 ***
 
 ### B. 개발 환경  
